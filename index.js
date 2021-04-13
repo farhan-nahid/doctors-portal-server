@@ -42,7 +42,6 @@ client.connect(err => {
   app.post('/appointmentById', (req, res)=>{
     const date = req.body
     const email = req.body.email
-
     doctorCollection.find({email: email})
     .toArray((err, doctors) => {
       const filter = {date:date.date}
@@ -55,9 +54,7 @@ client.connect(err => {
         res.send(documents)
       })
     })
-
-
-    
+   
   })
 
     app.post('/addADoctor', (req, res) =>{
@@ -85,6 +82,15 @@ client.connect(err => {
                 res.send(documents);
             })
     });
+
+    app.post('/isDoctor', (req, res)=>{
+      const email = req.body.email
+      doctorCollection.find({email: email})
+      .toArray((err, doctors) => {
+       res.send(doctors.length > 0)
+      })
+     
+    })
 
   
 });
